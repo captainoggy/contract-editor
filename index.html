@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Concourse Contract Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Load Ionic -->
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css"
+      rel="stylesheet"
+    />
+
+    <!-- Load TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/ji8h41oiwuofdnjzgsjpxq9kuos6h6f15rzkniwitna78yms/tinymce/6/tinymce.min.js?plugins=powerpaste,signature"></script>
+
+    <!-- Load diff library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+
+    <!-- Load our styles -->
+    <link href="/styles/main.css" rel="stylesheet" />
+
+    <!-- Add these lines after the meta viewport tag -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Add these in the head section -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/editor/editor.main.css"
+    />
+  </head>
+  <body>
+    <ion-app>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Concourse Contract Editor</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-segment value="create" id="navSegment">
+          <ion-segment-button value="create">
+            <ion-label>Start</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="edit">
+            <ion-label>Edit</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="review">
+            <ion-label>Review</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="complete">
+            <ion-label>Complete</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div id="pageContainer">
+          <div id="create" class="page active">
+            <div class="editor-header">
+              <h2>Create Contract</h2>
+              <div class="button-container">
+                <ion-button id="saveInitial">Save</ion-button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea id="editor1"></textarea>
+            </div>
+          </div>
+
+          <div id="edit" class="page">
+            <div class="editor-header">
+              <h2>Edit Contract</h2>
+              <div class="button-container">
+                <ion-button id="saveEdits">Save</ion-button>
+              </div>
+            </div>
+            <div class="editor-container">
+              <textarea id="editor2"></textarea>
+            </div>
+          </div>
+
+          <div id="review" class="page">
+            <div class="editor-header">
+              <h2>Review Changes</h2>
+              <div class="button-container">
+                <button id="saveReview" class="save-button">
+                  Save Changes
+                </button>
+              </div>
+            </div>
+            <div class="review-container">
+              <div id="changesList"></div>
+            </div>
+          </div>
+
+          <div id="complete" class="page">
+            <h2>Final Contract</h2>
+            <div class="final-container">
+              <div id="finalContent"></div>
+            </div>
+          </div>
+        </div>
+      </ion-content>
+    </ion-app>
+
+    <!-- Load our TypeScript code -->
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

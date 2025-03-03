@@ -1,0 +1,25 @@
+{
+  "name": "concourse-contract-editor",
+  "version": "1.0.0",
+  "description": "Contract editor with diff review",
+  "scripts": {
+    "clean": "rimraf dist/*",
+    "create-dirs": "mkdir -p dist/styles",
+    "prebuild": "npm run clean && npm run create-dirs",
+    "build": "tsc && npm run copy-static",
+    "prewatch": "npm run create-dirs",
+    "watch": "concurrently \"tsc --watch\" \"npm run watch-static\"",
+    "preserve": "npm run build",
+    "serve": "http-server -c-1 dist",
+    "copy-static": "copyfiles -f \"src/styles/**/*.css\" dist/styles && copyfiles -f \"index.html\" dist/",
+    "watch-static": "onchange 'src/styles/*.css' 'index.html' -- npm run copy-static"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "http-server": "^14.1.1",
+    "concurrently": "^8.0.1",
+    "onchange": "^7.1.0",
+    "rimraf": "^5.0.1",
+    "copyfiles": "^2.4.1"
+  }
+}
